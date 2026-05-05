@@ -1,4 +1,3 @@
-
 class Mech {
     constructor(x, y, color, controls, isPlayer1) {
         this.x = x;
@@ -51,7 +50,7 @@ class Mech {
             this.y = this.originalY;
         }
         
-        if (isMoving &amp;&amp; this.attackCooldown &lt;= 0) {
+        if (isMoving && this.attackCooldown <= 0) {
             this.state = 'moving';
         }
         
@@ -64,22 +63,22 @@ class Mech {
             this.defenseActive = false;
         }
         
-        if (keys[this.controls.attack] &amp;&amp; this.attackCooldown &lt;= 0 &amp;&amp; !this.defenseActive) {
+        if (keys[this.controls.attack] && this.attackCooldown <= 0 && !this.defenseActive) {
             this.state = 'attacking';
             this.attackDuration = 20;
             this.attackCooldown = 40;
             this.tryHit(otherMech);
         }
         
-        if (this.attackCooldown &gt; 0) this.attackCooldown--;
-        if (this.attackDuration &gt; 0) {
+        if (this.attackCooldown > 0) this.attackCooldown--;
+        if (this.attackDuration > 0) {
             this.attackDuration--;
             this.state = 'attacking';
         }
-        if (this.hitFlash &gt; 0) this.hitFlash--;
+        if (this.hitFlash > 0) this.hitFlash--;
         
         this.animTimer++;
-        if (this.animTimer &gt; 10) {
+        if (this.animTimer > 10) {
             this.animTimer = 0;
             this.animFrame = (this.animFrame + 1) % 4;
         }
@@ -90,8 +89,8 @@ class Mech {
         const dx = (otherMech.x + otherMech.width/2) - (this.x + this.width/2);
         const dy = Math.abs((otherMech.y + otherMech.height/2) - (this.y + this.height/2));
         
-        if (dy &lt; 40 &amp;&amp; Math.abs(dx) &lt; attackRange) {
-            if ((this.direction &gt; 0 &amp;&amp; dx &gt; 0) || (this.direction &lt; 0 &amp;&amp; dx &lt; 0)) {
+        if (dy < 40 && Math.abs(dx) < attackRange) {
+            if ((this.direction > 0 && dx > 0) || (this.direction < 0 && dx < 0)) {
                 let damage = 15;
                 if (otherMech.defenseActive) {
                     damage = 5;
@@ -110,7 +109,7 @@ class Mech {
     draw(ctx) {
         ctx.save();
         
-        if (this.hitFlash &gt; 0 &amp;&amp; this.hitFlash % 4 &lt; 2) {
+        if (this.hitFlash > 0 && this.hitFlash % 4 < 2) {
             ctx.globalAlpha = 0.5;
         }
         
@@ -122,7 +121,7 @@ class Mech {
             ctx.scale(-1, 1);
         }
         
-        const drawPixel = (x, y, w, h, color) =&gt; {
+        const drawPixel = (x, y, w, h, color) => {
             ctx.fillStyle = color;
             ctx.fillRect(this.x + x, this.y + y, w, h);
         };
@@ -146,7 +145,7 @@ class Mech {
             ctx.beginPath();
             ctx.arc(this.x + this.width/2, this.y + this.height/2, 40, 0, Math.PI * 2);
             ctx.stroke();
-            ctx.fillStyle = this.isPlayer1 ? 'rgba(0, 255, 245, 0.2)' : 'rgba(233, 69, 96, 0.2)';
+            ctx.fillStyle = this.isPlayer1 ? 'rgba(0,255,245,0.2)' : 'rgba(233,69,96,0.2)';
             ctx.fill();
         }
         
@@ -212,32 +211,32 @@ class Game {
     }
     
     setupEventListeners() {
-        window.addEventListener('keydown', (e) =&gt; {
+        window.addEventListener('keydown', (e) => {
             this.keys[e.key] = true;
             e.preventDefault();
         });
         
-        window.addEventListener('keyup', (e) =&gt; {
+        window.addEventListener('keyup', (e) => {
             this.keys[e.key] = false;
         });
         
-        document.getElementById('start-btn').addEventListener('click', () =&gt; {
+        document.getElementById('start-btn').addEventListener('click', () => {
             this.showScreen('game');
             this.start();
         });
         
-        document.getElementById('restart-btn').addEventListener('click', () =&gt; {
+        document.getElementById('restart-btn').addEventListener('click', () => {
             this.initGame();
             this.start();
         });
         
-        document.getElementById('menu-btn').addEventListener('click', () =&gt; {
+        document.getElementById('menu-btn').addEventListener('click', () => {
             this.showScreen('start');
         });
     }
     
     showScreen(screen) {
-        document.querySelectorAll('.screen').forEach(s =&gt; s.classList.remove('active'));
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         if (screen === 'start') {
             document.getElementById('start-screen').classList.add('active');
         } else if (screen === 'game') {
@@ -254,7 +253,7 @@ class Game {
         if (!this.gameOver) {
             this.update();
             this.draw();
-            requestAnimationFrame(() =&gt; this.gameLoop());
+            requestAnimationFrame(() => this.gameLoop());
         }
     }
     
@@ -267,11 +266,11 @@ class Game {
     }
     
     checkGameOver() {
-        if (this.mech1.health &lt;= 0) {
+        if (this.mech1.health <= 0) {
             this.gameOver = true;
             this.winner = 2;
             this.showGameOver();
-        } else if (this.mech2.health &lt;= 0) {
+        } else if (this.mech2.health <= 0) {
             this.gameOver = true;
             this.winner = 1;
             this.showGameOver();
@@ -322,26 +321,26 @@ class Game {
     }
     
     drawBackground() {
-        this.ctx.strokeStyle = 'rgba(15, 52, 96, 0.3)';
+        this.ctx.strokeStyle = 'rgba(15,52,96,0.3)';
         this.ctx.lineWidth = 1;
         
-        for (let x = 0; x &lt; this.canvas.width; x += 40) {
+        for (let x = 0; x < this.canvas.width; x += 40) {
             this.ctx.beginPath();
             this.ctx.moveTo(x, 0);
             this.ctx.lineTo(x, this.canvas.height);
             this.ctx.stroke();
         }
         
-        for (let y = 0; y &lt; this.canvas.height; y += 40) {
+        for (let y = 0; y < this.canvas.height; y += 40) {
             this.ctx.beginPath();
             this.ctx.moveTo(0, y);
             this.ctx.lineTo(this.canvas.width, y);
             this.ctx.stroke();
         }
         
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-        const stars = [[50, 30], [150, 80], [300, 50], [450, 100], [550, 40], [100, 150], [400, 180], [500, 140]];
-        stars.forEach(([x, y]) =&gt; {
+        this.ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        const stars = [[50,30],[150,80],[300,50],[450,100],[550,40],[100,150],[400,180],[500,140]];
+        stars.forEach(([x, y]) => {
             this.ctx.fillRect(x, y, 2, 2);
         });
     }
@@ -351,7 +350,7 @@ class Game {
         this.ctx.fillRect(0, 360, 600, 40);
         
         this.ctx.fillStyle = '#002244';
-        for (let x = 0; x &lt; 600; x += 20) {
+        for (let x = 0; x < 600; x += 20) {
             this.ctx.fillRect(x, 360, 10, 5);
         }
         
@@ -360,6 +359,6 @@ class Game {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () =&gt; {
+document.addEventListener('DOMContentLoaded', () => {
     const game = new Game();
 });
