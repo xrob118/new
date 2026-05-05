@@ -10,10 +10,10 @@ class MyHTTPRequestHandler(SimpleHTTPRequestHandler):
         super().end_headers()
     
     def guess_type(self, path):
-        mimetype, encoding = super().guess_type(path)
+        mimetype = super().guess_type(path)
         if mimetype == 'text/html' or mimetype == 'text/css' or mimetype == 'application/javascript':
             mimetype += '; charset=utf-8'
-        return mimetype, encoding
+        return mimetype
 
 if __name__ == '__main__':
     os.chdir('/workspace')
