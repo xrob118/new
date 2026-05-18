@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>像素机甲对战</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="start-screen" class="screen active">
+            <h1 class="game-title">像素机甲对战</h1>
+            <div class="game-rules">
+                <h2>游戏规则</h2>
+                <div class="rules-container">
+                    <div class="player-rules">
+                        <h3>玩家 1 (蓝色)</h3>
+                        <ul>
+                            <li>A / D - 左右移动</li>
+                            <li>W / S - 上下移动</li>
+                            <li>J - 攻击</li>
+                            <li>K - 防御</li>
+                        </ul>
+                    </div>
+                    <div class="player-rules">
+                        <h3>玩家 2 (红色)</h3>
+                        <ul>
+                            <li>← / → - 左右移动</li>
+                            <li>↑ / ↓ - 上下移动</li>
+                            <li>1 - 攻击</li>
+                            <li>2 - 防御</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="rules-note">将对手的血量降至 0 即可获胜！</p>
+            </div>
+            <button id="start-btn" class="pixel-btn">开始游戏</button>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="game-container">
+                <div class="status-panel left-panel">
+                    <div class="player-info">
+                        <h3>玩家 1</h3>
+                        <div class="health-bar-container">
+                            <div class="health-bar" id="health1">
+                                <div class="health-fill" id="health-fill1"></div>
+                            </div>
+                            <span class="health-text" id="health-text1">100/100</span>
+                        </div>
+                        <div class="state-text" id="state1">待机</div>
+                    </div>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <canvas id="game-canvas" width="600" height="400"></canvas>
+                    <div class="crt-overlay"></div>
+                </div>
+
+                <div class="status-panel right-panel">
+                    <div class="player-info">
+                        <h3>玩家 2</h3>
+                        <div class="health-bar-container">
+                            <div class="health-bar" id="health2">
+                                <div class="health-fill" id="health-fill2"></div>
+                            </div>
+                            <span class="health-text" id="health-text2">100/100</span>
+                        </div>
+                        <div class="state-text" id="state2">待机</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-hint">
+                <div class="hint-left">
+                    <span>A/D/W/S: 移动</span>
+                    <span>J: 攻击</span>
+                    <span>K: 防御</span>
+                </div>
+                <div class="hint-right">
+                    <span>1: 攻击</span>
+                    <span>2: 防御</span>
+                    <span>←/↑/↓/→: 移动</span>
+                </div>
+            </div>
+
+            <div id="game-over-overlay" class="overlay hidden">
+                <div class="overlay-content">
+                    <h2 id="winner-text">玩家 1 获胜！</h2>
+                    <button id="restart-btn" class="pixel-btn">再来一局</button>
+                    <button id="menu-btn" class="pixel-btn secondary">返回主页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
